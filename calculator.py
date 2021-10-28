@@ -48,13 +48,14 @@ for i in answer:
         if i == " ":
             continue
         #add a way to differentiate between **, */ and *
-        ans2 = i
-        sum.extend([ans, ans2])
+        ans2 += i
         ans = ""
     else:
+        sum.extend([ans, ans2])
         ans += i
         if len(answer) == len(sum) + 1:
             sum.extend(ans)
+        ans2 = ""
 
     
 #ToDo, incorporate parenthesis
