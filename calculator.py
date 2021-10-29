@@ -44,23 +44,28 @@ answer = str(input("Enter the equation, press enter when finished: "))
 sum = []
 ans = ""
 ans2 = ""
-for i in answer:
+counter = 1
+countmax = len(answer)
+for i in answer:   
+    print("I: ", i)
     if i in (" ", "**", "*/", "*", "/", "+", "-"):
         if i == " ":
+            counter += 1
             continue
-        #add a way to differentiate between **, */ and *
         elif ans != "":
-            sum.append([ans])
+            sum.append(ans)
         ans2 += i
         ans = ""
     else:
+        ans += i        
         if ans2 != "":
-            sum.append([ans2])
-        elif len(answer) == (len(sum) or len(sum) + 1) :
-            sum.extend(ans)
-        ans += i
+            sum.append(ans2)
+            if counter == countmax:
+                sum.append(ans)
+        elif counter == countmax:
+                sum.append(ans)
         ans2 = ""
-
+    counter += 1
     
 #ToDo, incorporate parenthesis
 work_sum = sum[:]
@@ -81,7 +86,6 @@ while counter < 6:
         var = b
     else:
         loc2 = 0
-    print("Gotcha")
     if loc1 == loc2 == 0:
         counter += 2
         continue
@@ -89,12 +93,9 @@ while counter < 6:
         loc = loc1
     else:
         loc = loc2
-    print("Ill find you")
     int_ans = calculation(work_sum[loc-1], work_sum[loc+1], var)
     del work_sum[loc-1:loc+2]
     work_sum.insert(loc-1, int_ans)
-    print("Doet het wel")
-    print("work_sum: ", work_sum)
     counter += 2
 
 print("The answer is: ", work_sum[0])
