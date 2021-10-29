@@ -43,23 +43,28 @@ print("The allowed math symbols are: **, */, *, /, +, - ")
 answer = str(input("Enter the equation, press enter when finished: "))
 sum = []
 ans = ""
+ans2 = ""
 for i in answer:
     if i in (" ", "**", "*/", "*", "/", "+", "-"):
         if i == " ":
             continue
         #add a way to differentiate between **, */ and *
-        ans2 = i
-        sum.extend([ans, ans2])
+        elif ans != "":
+            sum.append([ans])
+        ans2 += i
         ans = ""
     else:
-        ans += i
-        if len(answer) == len(sum) + 1:
+        if ans2 != "":
+            sum.append([ans2])
+        elif len(answer) == (len(sum) or len(sum) + 1) :
             sum.extend(ans)
+        ans += i
+        ans2 = ""
 
     
 #ToDo, incorporate parenthesis
 work_sum = sum[:]
-
+print("Work sum: ", work_sum)
 order = ["**", "*/", "*", "/", "+", "-"]
 counter = 0
 #make this a definition that accepts a list, which will be without parenthesis
@@ -76,6 +81,7 @@ while counter < 6:
         var = b
     else:
         loc2 = 0
+    print("Gotcha")
     if loc1 == loc2 == 0:
         counter += 2
         continue
@@ -83,9 +89,11 @@ while counter < 6:
         loc = loc1
     else:
         loc = loc2
+    print("Ill find you")
     int_ans = calculation(work_sum[loc-1], work_sum[loc+1], var)
     del work_sum[loc-1:loc+2]
     work_sum.insert(loc-1, int_ans)
+    print("Doet het wel")
     print("work_sum: ", work_sum)
     counter += 2
 
